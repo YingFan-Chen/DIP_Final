@@ -8,7 +8,7 @@ Our task is to complete "Seamless Focal-Stack Refocusing".
 Strategy : Resize the image and find the min_dist(F, F_r), where F is the origin image and F_r is the image after resizing.   
 
 Issues to slove:
-  1. Time Complexity is too higher.  
+  1. Time Complexity is too high.  
   2. Refocusing result can be better.  
   
 Things to do:

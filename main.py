@@ -24,11 +24,9 @@ def dist(img1, img2):
     assert(img1.shape == img2.shape)
     h, w, c = img1.shape
     res = 0
-    tmp = abs(img1 - img2)
-    for x in range(h):
-        for y in range(w):
-            for z in range(c):
-                res += tmp[x][y][z] * tmp[x][y][z]
+    tmp = img1 - img2
+    tmp = np.multiply(tmp, tmp)
+    res = np.sum(tmp)
     return res
 
 def bilinear(x, y, img):

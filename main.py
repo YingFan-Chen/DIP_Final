@@ -29,26 +29,11 @@ def dist(img1, img2):
     res = np.sum(tmp)
     return res
 
-def bilinear(x, y, img):
-    l = math.floor(x)
-    k = math.floor(y)
-    a = x - l
-    b = y - k
-    res = (1 - a) * (1 - b) * img[l][k] + a * (1 - b) * img[l + 1][k] + (1 - a) * b * img[l][k + 1] + a * b * img[l + 1][k + 1]
-    if res > 255:
-        res = 255
-    if res < 0:
-        res = 0
-    return round(res)
-
 def resize(img, percentage):
     h, w, c = img.shape
-    mid = [h//2, w//2]
-    res = np.zeros((h, w, c), dtype="uint8")
-    for x in range(h):
-        for y in range(w):
-            for z in range(c):
-                res[x, y, z] = bilinear(percentage * (x - mid[0]) + mid[0], percentage * (y - mid[1]) + mid[1], img[:,:,z])
+    hd, wd = int(h * (1 - percentage) / 2), int(w * (1 - percentage) / 2)
+    tmp = img[hd:h-hd, wd:w-wd]
+    res = cv2.resize(tmp, (w, h), interpolation=cv2.INTER_LINEAR)
     return res
 
 def adjust(img1, img2):
